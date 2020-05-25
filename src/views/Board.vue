@@ -1,13 +1,16 @@
 <template>
   <div class="board">
-
+    <div class="flex flex-row items-start">
+      <div class="column" v-for="column of board.columns"></div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
-
-}
+  computed: mapState(['board'])
+};
 </script>
 
 <style lang="css">
@@ -26,6 +29,6 @@ export default {
 
 .task-bg {
   @apply pin absolute;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.5);
 }
 </style>

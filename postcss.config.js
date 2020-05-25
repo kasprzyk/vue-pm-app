@@ -1,7 +1,7 @@
 const IN_PRODUCTION = process.env.NODE_ENV === 'production'
 
 class TailwindVueExtractor {
-  static extract (content) {
+  static extract(content) {
     const contentWithoutStyleBlocks = content.replace(/<style[^]+?<\/style>/gi, '')
     return contentWithoutStyleBlocks.match(/[A-Za-z0-9-_:/]+/g) || []
   }
