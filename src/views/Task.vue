@@ -8,6 +8,7 @@
       class="p-2 w-full font-bold mr-2 flex-grow text-xl"
       :value="task.name"
       @change="updateTaskProperty($event, 'name')"
+      @keyup.enter="updateTaskProperty($event, 'name')"
     />
     <textarea
       class="relative bg-transparent px-2 border mt-2 h-64 border-none leading-normal"
