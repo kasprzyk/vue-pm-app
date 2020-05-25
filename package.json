@@ -7,6 +7,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "prettier": {
+    "singleQuote": true
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-solid-svg-icons": "^5.7.2",
