@@ -3,6 +3,11 @@
     <div class="flex flex-col flex-grow items-start justify-between px-4">
       {{ task.name }}
     </div>
+    <textarea
+      class="relative bg-transparent px-2 border mt-2 h-64 border-none leading-normal"
+      :value="task.description"
+    >
+    </textarea>
   </div>
 </template>
 
