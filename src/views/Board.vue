@@ -22,6 +22,9 @@
             draggable
             @dragstart="pickupTask($event, $taskIndex, $columnIndex)"
             @click="goToTask(task)"
+            @dragover.prevent
+            @dragenter.prevent
+            @drop="moveTask($event, column.tasks, $taskIndex)"
           >
             <span class="w-full flex-no-shrink font-bold">
               {{ task.name }}
@@ -92,14 +95,15 @@ export default {
         this.moveColumn(e, toColumnIndex);
       }
     },
-    moveTask(e, toTasks) {
+    moveTask(e, toTasks, toTaskIndex) {
       const fromColumnIndex = e.dataTransfer.getData('from-column-index');
       const fromTasks = this.board.columns[fromColumnIndex].tasks;
       const taskIndex = e.dataTransfer.getData('task-index');
       this.$store.commit('MOVE_TASK', {
         fromTasks,
         toTasks,
-        taskIndex
+        taskIndex,
+        toTaskIndex
       });
     },
     moveColumn(e, toColumnIndex) {
