@@ -6,7 +6,7 @@
         v-for="(column, $columnIndex) of board.columns"
         :key="$columnIndex"
         draggable
-        @drop="moveTask($event, column.tasks)"
+        @drop="moveTaskOrColumn($event, column.tasks)"
         @dragover.prevent
         @dragenter.prevent
         @dragstart.self="pickupColumn($event, $columnIndex)"
@@ -81,9 +81,14 @@ export default {
     pickupColumn(e, fromColumnIndex) {
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.dropEffect = 'move';
-
       e.dataTransfer.setData('from-column-index', fromColumnIndex);
       e.dataTransfer.setData('type', 'column');
+    },
+    moveTaskOrColumn(e, toTasks) {
+      const type = e.dataTransfer.getData('type');
+      if (type === 'task') {
+        this.moveTask(e, toTasks);
+      }
     },
     moveTask(e, toTasks) {
       const fromColumnIndex = e.dataTransfer.getData('from-column-index');
