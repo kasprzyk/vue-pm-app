@@ -6,6 +6,7 @@
         :key="$columnIndex"
         :column="column"
         :columnIndex="$columnIndex"
+        :board="board"
       />
 
       <div class="column flex">
@@ -29,7 +30,7 @@ import BoardColumn from '@/components/BoardColumn';
 export default {
   data() {
     return {
-      newcolumnName: ''
+      newColumnName: ''
     };
   },
   components: {

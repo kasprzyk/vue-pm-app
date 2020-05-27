@@ -47,6 +47,10 @@ export default {
       type: Object,
       required: true
     },
+    board: {
+      type: Object,
+      required: true
+    },
     columnIndex: {
       type: Number,
       required: true
