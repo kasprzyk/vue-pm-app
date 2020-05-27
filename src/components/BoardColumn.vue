@@ -31,50 +31,40 @@
     </AppDrag>
   </AppDrop>
 </template>
+
 <script>
 import ColumnTask from './BoardColumnTask';
-import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin';
 import AppDrag from './AppDrag';
 import AppDrop from './AppDrop';
+import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin';
+
 export default {
   components: {
     ColumnTask,
-    AppDrop,
-    AppDrag
+    AppDrag,
+    AppDrop
   },
   mixins: [movingTasksAndColumnsMixin],
-
   methods: {
+    pickupColumn(e, fromColumnIndex) {
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.dropEffect = 'move';
+
+      e.dataTransfer.setData('from-column-index', fromColumnIndex);
+      e.dataTransfer.setData('type', 'column');
+    },
     createTask(e, tasks) {
       this.$store.commit('CREATE_TASK', {
         tasks,
         name: e.target.value
       });
       e.target.value = '';
-    },
-    pickupColumn(e, fromColumnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('from-column-index', fromColumnIndex);
-      e.dataTransfer.setData('type', 'column');
-    },
-    moveTaskOrColumn(e, toTasks, toColumnIndex, toTaskIndex) {
-      const type = e.dataTransfer.getData('type');
-      if (type === 'task') {
-        this.moveTask(
-          e,
-          toTasks,
-          toTaskIndex !== undefined ? toTaskIndex : toTasks.length
-        );
-      } else {
-        this.moveColumn(e, toColumnIndex);
-      }
     }
   }
 };
 </script>
 
-<style lang="css" scoped>
+<style lang="css">
 .column {
   @apply bg-grey-light p-2 mr-4 text-left shadow rounded;
   min-width: 350px;
