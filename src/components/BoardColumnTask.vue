@@ -20,7 +20,10 @@
 
 <script>
 import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin';
+import AppDrag from './AppDrag';
+import AppDrop from './AppDrop';
 export default {
+  components: { AppDrag, AppDrop },
   mixins: [movingTasksAndColumnsMixin],
   methods: {
     goToTask(task) {

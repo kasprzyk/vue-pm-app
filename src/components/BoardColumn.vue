@@ -32,9 +32,13 @@
 <script>
 import ColumnTask from './BoardColumnTask';
 import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin';
+import AppDrag from './AppDrag';
+import AppDrop from './AppDrop';
 export default {
   components: {
-    ColumnTask
+    ColumnTask,
+    AppDrop,
+    AppDrag
   },
   mixins: [movingTasksAndColumnsMixin],
 
