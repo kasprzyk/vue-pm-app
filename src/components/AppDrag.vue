@@ -6,6 +6,12 @@
 
 <script>
 export default {
+  props: {
+    transferData: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
     onDrag(e) {
       e.dataTransfer.effectAllowed = 'move';
