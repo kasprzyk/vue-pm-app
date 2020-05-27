@@ -1,13 +1,13 @@
 <template>
   <div
     class="task"
-    :key="$taskIndex"
+    :key="taskIndex"
     draggable
-    @dragstart="pickupTask($event, $taskIndex, columnIndex)"
+    @dragstart="pickupTask($event, taskIndex, columnIndex)"
     @click="goToTask(task)"
     @dragover.prevent
     @dragenter.prevent
-    @drop.stop="moveTaskOrColumn($event, column.tasks, columnIndex, $taskIndex)"
+    @drop.stop="moveTaskOrColumn($event, column.tasks, columnIndex, taskIndex)"
   >
     <span class="w-full flex-no-shrink font-bold">
       {{ task.name }}
