@@ -15,6 +15,8 @@
         v-for="(task, $taskIndex) of column.tasks"
         :key="$taskIndex"
         :task="task"
+        :board="board"
+        :column="column"
         :taskIndex="$taskIndex"
         :columnIndex="columnIndex"
       />
