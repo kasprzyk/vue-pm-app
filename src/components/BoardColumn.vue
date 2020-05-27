@@ -11,26 +11,13 @@
       {{ column.name }}
     </div>
     <div class="list-reset">
-      <div
-        class="task"
+      <ColumnTask
         v-for="(task, $taskIndex) of column.tasks"
         :key="$taskIndex"
-        draggable
-        @dragstart="pickupTask($event, $taskIndex, columnIndex)"
-        @click="goToTask(task)"
-        @dragover.prevent
-        @dragenter.prevent
-        @drop.stop="
-          moveTaskOrColumn($event, column.tasks, columnIndex, $taskIndex)
-        "
-      >
-        <span class="w-full flex-no-shrink font-bold">
-          {{ task.name }}
-        </span>
-        <p v-if="task.description" class="w-full flex-no-shrink mt-1 text-sm">
-          {{ task.description }}
-        </p>
-      </div>
+        :task="task"
+        :taskIndex="$taskIndex"
+        :columnIndex="columnIndex"
+      />
       <input
         type="text"
         class="block p-2 w-full bg-transparent"
@@ -41,7 +28,11 @@
   </div>
 </template>
 <script>
+import ColumnTask from './BoardColumnTask';
 export default {
+  components: {
+    ColumnTask
+  },
   props: {
     column: {
       type: Object,
@@ -57,25 +48,12 @@ export default {
     }
   },
   methods: {
-    goToTask(task) {
-      this.$router.push({ name: 'task', params: { id: task.id } });
-    },
-    close() {
-      this.$router.push({ name: 'board' });
-    },
     createTask(e, tasks) {
       this.$store.commit('CREATE_TASK', {
         tasks,
         name: e.target.value
       });
       e.target.value = '';
-    },
-    pickupTask(e, taskIndex, fromColumnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('task-index', taskIndex);
-      e.dataTransfer.setData('from-column-index', fromColumnIndex);
-      e.dataTransfer.setData('type', 'task');
     },
     pickupColumn(e, fromColumnIndex) {
       e.dataTransfer.effectAllowed = 'move';

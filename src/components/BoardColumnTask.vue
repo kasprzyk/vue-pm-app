@@ -1,7 +1,6 @@
 <template>
   <div
     class="task"
-    v-for="(task, $taskIndex) of column.tasks"
     :key="$taskIndex"
     draggable
     @dragstart="pickupTask($event, $taskIndex, columnIndex)"
@@ -21,7 +20,7 @@
 
 <script>
 export default {
-  props: {
+  methods: {
     moveTaskOrColumn(e, toTasks, toColumnIndex, toTaskIndex) {
       const type = e.dataTransfer.getData('type');
       if (type === 'task') {
@@ -43,9 +42,40 @@ export default {
       e.dataTransfer.setData('task-index', taskIndex);
       e.dataTransfer.setData('from-column-index', fromColumnIndex);
       e.dataTransfer.setData('type', 'task');
+    },
+    moveTask(e, toTasks, toTaskIndex) {
+      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
+      const fromTasks = this.board.columns[fromColumnIndex].tasks;
+      const taskIndex = e.dataTransfer.getData('task-index');
+      this.$store.commit('MOVE_TASK', {
+        fromTasks,
+        toTasks,
+        taskIndex,
+        toTaskIndex
+      });
+    },
+    moveColumn(e, toColumnIndex) {
+      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
+      this.$store.commit('MOVE_COLUMN', {
+        fromColumnIndex,
+        toColumnIndex
+      });
     }
   },
-  methods: {}
+  props: {
+    task: {
+      type: Object,
+      required: true
+    },
+    taskIndex: {
+      type: Number,
+      required: true
+    },
+    columnIndex: {
+      type: Number,
+      required: true
+    }
+  }
 };
 </script>
 <style lang="css" scoped></style>
