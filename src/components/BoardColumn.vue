@@ -41,7 +41,18 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  props: {
+    column: {
+      type: Object,
+      required: true
+    },
+    columnIndex: {
+      type: Number,
+      required: true
+    }
+  }
+};
 </script>
 
 <style lang="css" scoped>
