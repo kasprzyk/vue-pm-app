@@ -31,24 +31,13 @@
 </template>
 <script>
 import ColumnTask from './BoardColumnTask';
+import movingTasksAndColumnsMixin from '@/mixins/movingTasksAndColumnsMixin';
 export default {
   components: {
     ColumnTask
   },
-  props: {
-    column: {
-      type: Object,
-      required: true
-    },
-    board: {
-      type: Object,
-      required: true
-    },
-    columnIndex: {
-      type: Number,
-      required: true
-    }
-  },
+  mixins: [movingTasksAndColumnsMixin],
+
   methods: {
     createTask(e, tasks) {
       this.$store.commit('CREATE_TASK', {
@@ -74,24 +63,6 @@ export default {
       } else {
         this.moveColumn(e, toColumnIndex);
       }
-    },
-    moveTask(e, toTasks, toTaskIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
-      const fromTasks = this.board.columns[fromColumnIndex].tasks;
-      const taskIndex = e.dataTransfer.getData('task-index');
-      this.$store.commit('MOVE_TASK', {
-        fromTasks,
-        toTasks,
-        taskIndex,
-        toTaskIndex
-      });
-    },
-    moveColumn(e, toColumnIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
-      this.$store.commit('MOVE_COLUMN', {
-        fromColumnIndex,
-        toColumnIndex
-      });
     }
   }
 };
