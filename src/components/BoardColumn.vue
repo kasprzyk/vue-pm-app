@@ -66,12 +66,6 @@ export default {
       });
       e.target.value = '';
     },
-    createColumn() {
-      this.$store.commit('CREATE_COLUMN', {
-        name: this.newColumnName
-      });
-      this.newColumnName = '';
-    },
     pickupTask(e, taskIndex, fromColumnIndex) {
       e.dataTransfer.effectAllowed = 'move';
       e.dataTransfer.dropEffect = 'move';

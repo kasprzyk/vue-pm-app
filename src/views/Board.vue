@@ -42,67 +42,14 @@ export default {
     }
   },
   methods: {
-    goToTask(task) {
-      this.$router.push({ name: 'task', params: { id: task.id } });
-    },
     close() {
       this.$router.push({ name: 'board' });
-    },
-    createTask(e, tasks) {
-      this.$store.commit('CREATE_TASK', {
-        tasks,
-        name: e.target.value
-      });
-      e.target.value = '';
     },
     createColumn() {
       this.$store.commit('CREATE_COLUMN', {
         name: this.newColumnName
       });
       this.newColumnName = '';
-    },
-    pickupTask(e, taskIndex, fromColumnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('task-index', taskIndex);
-      e.dataTransfer.setData('from-column-index', fromColumnIndex);
-      e.dataTransfer.setData('type', 'task');
-    },
-    pickupColumn(e, fromColumnIndex) {
-      e.dataTransfer.effectAllowed = 'move';
-      e.dataTransfer.dropEffect = 'move';
-      e.dataTransfer.setData('from-column-index', fromColumnIndex);
-      e.dataTransfer.setData('type', 'column');
-    },
-    moveTaskOrColumn(e, toTasks, toColumnIndex, toTaskIndex) {
-      const type = e.dataTransfer.getData('type');
-      if (type === 'task') {
-        this.moveTask(
-          e,
-          toTasks,
-          toTaskIndex !== undefined ? toTaskIndex : toTasks.length
-        );
-      } else {
-        this.moveColumn(e, toColumnIndex);
-      }
-    },
-    moveTask(e, toTasks, toTaskIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
-      const fromTasks = this.board.columns[fromColumnIndex].tasks;
-      const taskIndex = e.dataTransfer.getData('task-index');
-      this.$store.commit('MOVE_TASK', {
-        fromTasks,
-        toTasks,
-        taskIndex,
-        toTaskIndex
-      });
-    },
-    moveColumn(e, toColumnIndex) {
-      const fromColumnIndex = e.dataTransfer.getData('from-column-index');
-      this.$store.commit('MOVE_COLUMN', {
-        fromColumnIndex,
-        toColumnIndex
-      });
     }
   }
 };
